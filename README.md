@@ -5,7 +5,7 @@
 python setup.py
 ```
 
-##Data Preparing
+## Data Preparing
 ```
 data type = csv
 LOC, Gene
@@ -17,9 +17,11 @@ LOC, Gene
 .
 ```
 
-##Start Convert
+## Start Convert
 ```
 python convert.py --input *.csv --output {file_name}
+```
+```
 python convert.py --input ./demo/feature.csv --output conver_result
 ```
 
