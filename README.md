@@ -2,6 +2,9 @@
 
 ## Env Preparing
 ```
+git clone https://github.com/IlikeBB/Convert-Gene.git
+```
+```
 python setup.py
 ```
 
