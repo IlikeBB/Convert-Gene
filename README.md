@@ -6,8 +6,8 @@ python setup.py
 ```
 
 ## Data Preparing
+> * input data must csv type.
 ```
-data type = csv
 LOC, Gene
 1231, C
 4513, G
