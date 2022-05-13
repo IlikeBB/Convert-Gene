@@ -27,4 +27,6 @@ LOC, Gene
 python convert.py --input ./feature_list.csv --output conver_result
 ```
 
+##  Results
+<img src='https://github.com/IlikeBB/F3DD/blob/main/plot_results/is0302.gif'></p>
 
