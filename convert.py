@@ -31,19 +31,28 @@ class convert_process:
             split_strings = ''.join(or_seq).split()
             split_strings.insert(13202, 'C')
             or_seq = ''.join(split_strings)
+        first_loc = None
         if loc_p%3==0:
             b_rna = f'{or_seq[loc_p] + or_seq[loc_p+1] + or_seq[loc_p+2]}'.replace(' ','')
             a_rna = f'{loc_gene[1] + or_seq[loc_p+1] + or_seq[loc_p+2]}'.replace(' ','')
+            first_loc = loc_p
+            # print(loc_p, loc_p+1, loc_p+2)
         elif loc_p%3==1:
             b_rna = f'{or_seq[loc_p-1] + or_seq[loc_p] + or_seq[loc_p+1]}'.replace(' ','')
             a_rna = f'{or_seq[loc_p-1] + loc_gene[1] + or_seq[loc_p+1]}'.replace(' ','')
+            first_loc = loc_p-1
+            # print(loc_p-1, loc_p, loc_p+1)
         else:
             b_rna = f'{or_seq[loc_p-2] + or_seq[loc_p-1] + or_seq[loc_p]}'.replace(' ','')
             a_rna = f'{or_seq[loc_p-2] + or_seq[loc_p-1] + loc_gene[1]}'.replace(' ','')
+            first_loc = loc_p-2
+        #     print(loc_p-2, loc_p-1, loc_p)
+        # print('first loc', int(first_loc/3))
+
         try:
-            return f'{Seq(b_rna).translate()[0]}2{ Seq(a_rna).translate()[0]}'
+            return f'{Seq(b_rna).translate()[0]}{int(first_loc/3)+1}{ Seq(a_rna).translate()[0]}'
         except:
-            return f'{Seq(b_rna).translate()[0]}2-'
+            return f'{Seq(b_rna).translate()[0]}--'
         
     def search_position(self, pos):
         for idx, i in enumerate(search_dict):
