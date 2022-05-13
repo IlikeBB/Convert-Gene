@@ -52,7 +52,7 @@ class convert_process:
         try:
             return f'{Seq(b_rna).translate()[0]}{int(first_loc/3)+1}{ Seq(a_rna).translate()[0]}'
         except:
-            return f'{Seq(b_rna).translate()[0]}--'
+            return f'{Seq(b_rna).translate()[0]}{int(first_loc/3)+1}X'
         
     def search_position(self, pos):
         for idx, i in enumerate(search_dict):
