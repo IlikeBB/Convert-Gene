@@ -28,5 +28,5 @@ python convert.py --input demo/feature_list.csv --output test --nullchange False
 ```
 
 ##  Results
-<img src='https://github.com/IlikeBB/Convert-Gene/blob/main/demo/result.png'></p>
+<img src='https://github.com/IlikeBB/Convert-Gene/blob/main/demo/result2.png'></p>
 
