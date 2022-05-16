@@ -53,17 +53,24 @@ class convert_process:
             return f'{Seq(b_rna).translate()[0]}{int(first_loc/3)+1}{ Seq(a_rna).translate()[0]}'
         except:
             return f'{Seq(b_rna).translate()[0]}{int(first_loc/3)+1}X'
-        
+    
+    def process_rna(self, pos, i):
+        self.chrom.append('NC_045512.2')
+        self.position.append(pos[0])
+        self.ref.append(search_dict[i][1][pos[0] - i[0]])
+        self.alt.append(pos[1])
+        self.gene.append(search_dict[i][0])
+        self.gene_loc.append(pos[0] - i[0]+1)
+        self.trans.append(self.convert_gene(search_dict[i][1], pos[0] - i[0], pos))
+
     def search_position(self, pos):
         for idx, i in enumerate(search_dict):
-            if (pos[0] >=i[0] and pos[0]<=i[1]) and (pos[1]!=search_dict[i][1][pos[0] - i[0]]):
-                self.chrom.append('NC_045512.2')
-                self.position.append(pos[0])
-                self.ref.append(search_dict[i][1][pos[0] - i[0]])
-                self.alt.append(pos[1])
-                self.gene.append(search_dict[i][0])
-                self.gene_loc.append(pos[0] - i[0]+1)
-                self.trans.append(self.convert_gene(search_dict[i][1], pos[0] - i[0], pos))
+            # if ==
+            if (pos[0] >=i[0] and pos[0]<=i[1]) and (args.nullchange)==True:
+                self.process_rna(pos, i)
+            elif (pos[0] >=i[0] and pos[0]<=i[1]) and (args.nullchange)==False:
+                self.process_rna(pos, i)
+
     def standard(self,):
         # data_vcf = {'CHROM': self.chrom, 'POS': self.position, 'REF': self.ref, 'ALT': self.alt1, 'Gene': self.gene, 'REF_Position': self.debug}
         data_vcf = {'CHROM': self.chrom, 'POS': self.position, 'REF': self.ref, 'ALT': self.alt, 'Gene': self.gene, 'Gene LOC': self.gene_loc, 'Translate': self.trans}
@@ -71,8 +78,9 @@ class convert_process:
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", "-i", type=str, required=False, default='./demo/test.csv',help='Input Gene Feature data. e.g.: *.csv,')
-    parser.add_argument("--output", "-o", type=str, required=False, default='./demo/output', help='Export translation gene data.')
+    parser.add_argument("--input", "-i", type=str, required=False, default='./demo/test.csv',help='Input Gene Feature data. e.g.: *.csv.  Default: ./demo/test.csv')
+    parser.add_argument("--output", "-o", type=str, required=False, default='./demo/output', help='Export translation gene data. Default: ./demo/output')
+    parser.add_argument("--nullchange", "-nc", type=bool, required=False, default=True, help='Filter Gene with no change. Default: True')
     # parser.add_argument("-h", "--help", default='help',required=False)
     args = parser.parse_args()
     feature_data = list(pd.read_csv(args.input).values)
