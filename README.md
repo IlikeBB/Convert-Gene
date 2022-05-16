@@ -24,7 +24,7 @@ LOC, Gene
 > * python convert.py --input *.csv --output {file_name}
 
 ```
-python convert.py --input ./feature_list.csv --output conver_result
+python convert.py --input demo/feature_list.csv --output test --nullchange False
 ```
 
 ##  Results
